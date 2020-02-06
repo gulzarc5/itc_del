@@ -17,8 +17,11 @@ Route::group(['namespace'=>'Api'], function(){
 
     Route::group(['middleware'=>'auth:api'],function(){
         Route::get('journey/form/load','JourneyController@journeyFormLoad');
+
+        Route::post('journey/start','JourneyController@journeyStart');
+
     });
      
-    
+
 });
 

@@ -27,19 +27,55 @@ class JourneyController extends Controller
     }
 
 
-    public function JourneyStart(Request $request)
+    public function journeyStart(Request $request)
     {
         $validator =  Validator::make($request->all(),[
             'user_id' => 'required',
-            'user_id' => 'required',
+            'beat_id' => 'required',
+            'start_date' => 'required',
+            'start_time' => 'required',
+            'start_latitude' => 'required',
+            'start_longtitude' => 'required',
+            'start_address' => 'required',
         ]);
     
         if ($validator->fails()) {
             $response = [
                 'status' => false,
-                'message' => 'Required Field Can not be Empty',
+                'message' => 'Input Validation Error',
                 'error_code' => true,
                 'error_message' => $validator->errors(),
+            ];
+            return response()->json($response, 200);
+        }
+
+        $journey = DB::table('start_journey')
+            ->insert([
+                'user_id' => $request->input('user_id'),
+                'beat_id' => $request->input('beat_id'),
+                'start_date' => $request->input('start_date'),
+                'start_time' => $request->input('start_time'),
+                'start_latitude' => $request->input('start_latitude'),
+                'start_longtitude' => $request->input('start_longtitude'),
+                'start_address' => $request->input('start_address'),
+                'created_at' => Carbon::now()->setTimezone('Asia/Kolkata')->toDateTimeString(),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Kolkata')->toDateTimeString(),
+            ]);
+        
+        if ($journey) {
+            $response = [
+                'status' => true,
+                'message' => 'Journey Started Successfully',
+                'error_code' => false,
+                'error_message' => null,
+            ];
+            return response()->json($response, 200);
+        } else {
+            $response = [
+                'status' => false,
+                'message' => 'Something Went Wrong Please Try Again',
+                'error_code' => false, 
+                'error_message' => null,
             ];
             return response()->json($response, 200);
         }
