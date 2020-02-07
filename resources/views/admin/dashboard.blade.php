@@ -31,16 +31,16 @@
               <div class="x_content">
                  {{--//////////// Last Ten Sellers //////////////--}}
                  <div class="table-responsive">
-                    <h2>Last Ten User</h2>
+                    <h2>Started Journey</h2>
                     <table class="table table-striped jambo_table bulk_action">
                         <thead>
                             <tr class="headings">                
                                 <th class="column-title">Sl No. </th>
-                                <th class="column-title">Name</th>
-                                <th class="column-title">Email</th>
-                                <th class="column-title">Mobile No</th>
-                                <th class="column-title">address</th>
-                                <th class="column-title">Date</th>
+                                <th class="column-title">Started Date</th>
+                                <th class="column-title">Beat Name</th>
+                                <th class="column-title">Delivery Boy</th>
+                                <th class="column-title">Address</th>
+                                <th class="column-title">Action</th>
                             </tr>
                         </thead>
 

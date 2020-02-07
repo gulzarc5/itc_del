@@ -32,6 +32,7 @@ class JourneyController extends Controller
         $validator =  Validator::make($request->all(),[
             'user_id' => 'required',
             'beat_id' => 'required',
+            'vehicle_id' => 'required',
             'start_date' => 'required',
             'start_time' => 'required',
             'start_latitude' => 'required',
@@ -54,7 +55,8 @@ class JourneyController extends Controller
         $journey = DB::table('start_journey')
             ->insertGetId([
                 'user_id' => $request->input('user_id'),
-                'beat_id' => $request->input('beat_id'),
+                'beat_id' => $request->input('beat_id'),                
+                'vehicle_id' => $request->input('vehicle_id'),
                 'start_date' => $request->input('start_date'),
                 'start_time' => $request->input('start_time'),
                 'start_latitude' => $request->input('start_latitude'),
