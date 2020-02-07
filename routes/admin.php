@@ -30,5 +30,10 @@ Route::group(['namespace'=>'Admin'],function(){
             Route::get('list/ajax','VehicleController@vehicleListAjax')->name('admin.vehicle_list_ajax');
         });
 
+        Route::group(['prefix'=>'report'],function(){
+            Route::get('ended/delivery','ReportController@endedReport')->name('admin.ended_delivery_report');
+            Route::get('ended/list/ajax','ReportController@endedReportAjax')->name('admin.ended_delivery_report_ajax');
+        });
+
     });
 });

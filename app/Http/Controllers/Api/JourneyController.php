@@ -52,6 +52,7 @@ class JourneyController extends Controller
             return response()->json($response, 200);
         }
 
+        $vehicle = DB::table('vehicle_type')->where('id',$request->input('vehicle_id'))->first();
         $journey = DB::table('start_journey')
             ->insertGetId([
                 'user_id' => $request->input('user_id'),
@@ -62,6 +63,7 @@ class JourneyController extends Controller
                 'start_latitude' => $request->input('start_latitude'),
                 'start_longtitude' => $request->input('start_longtitude'),
                 'start_address' => $request->input('start_address'),
+                'per_km_cost' => $vehicle->km_cost,
                 'created_at' => Carbon::now()->setTimezone('Asia/Kolkata')->toDateTimeString(),
                 'updated_at' => Carbon::now()->setTimezone('Asia/Kolkata')->toDateTimeString(),
             ]);
@@ -136,6 +138,20 @@ class JourneyController extends Controller
             return response()->json($response, 200);
         }
 
+        $journey = DB::table('start_journey')->where('id',$request->input('journey_id'))->first();
+        $total_cost = 0;
+        if ($journey) {
+            $total_cost =  floatval($request->input('total_km')) * floatval($journey->per_km_cost);
+        }else{
+            $response = [
+                'status' => false,
+                'message' => 'Something Went Wrong Please Try Again',
+                'error_code' => false,
+                'error_message' => null,
+            ];
+            return response()->json($response, 200);
+        }
+
         $journey = DB::table('start_journey')
             ->where('id',$request->input('journey_id'))
             ->update([
@@ -146,6 +162,7 @@ class JourneyController extends Controller
                 'end_longtitude' => $request->input('end_longtitude'),
                 'end_address' => $request->input('end_address'),
                 'total_km' => $request->input('total_km'),
+                'total_cost' => $total_cost,
                 'status' => 2,
                 'updated_at' => Carbon::now()->setTimezone('Asia/Kolkata')->toDateTimeString(),
             ]);

@@ -94,7 +94,7 @@
                   </li>
                   <li><a><i class="fa fa-cogs" aria-hidden="true"></i> Report <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                     <li class="sub_menu"><a href="#">Delivery Report</a></li>
+                     <li class="sub_menu"><a href="{{route('admin.ended_delivery_report')}}">Delivery Report</a></li>
                    </ul>
                  </li>
 
