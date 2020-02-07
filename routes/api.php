@@ -22,6 +22,8 @@ Route::group(['namespace'=>'Api'], function(){
 
         Route::get('outlet/list/{beat_id}','JourneyController@outLetList');
 
+        Route::post('journey/end','JourneyController@journeyEnd');
+
     });
      
 

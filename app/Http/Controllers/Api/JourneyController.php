@@ -109,4 +109,61 @@ class JourneyController extends Controller
             return response()->json($response, 200);
         }
     }
+
+    public function journeyEnd(Request $request)
+    {
+        $validator =  Validator::make($request->all(),[
+            'user_id' => 'required',
+            'journey_id' => 'required',
+            'end_date' => 'required',
+            'end_time' => 'required',
+            'end_latitude' => 'required',
+            'end_longtitude' => 'required',
+            'end_address' => 'required',            
+            'total_km' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+
+            $response = [
+                'status' => false,
+                'message' => 'Input Validation Error',
+                'error_code' => true,
+                'error_message' => $validator->errors(),
+            ];
+            return response()->json($response, 200);
+        }
+
+        $journey = DB::table('start_journey')
+            ->where('id',$request->input('journey_id'))
+            ->update([
+                'user_id' => $request->input('user_id'),
+                'end_date' => $request->input('end_date'),
+                'end_time' => $request->input('end_time'),
+                'end_latitude' => $request->input('end_latitude'),
+                'end_longtitude' => $request->input('end_longtitude'),
+                'end_address' => $request->input('end_address'),
+                'total_km' => $request->input('total_km'),
+                'status' => 2,
+                'updated_at' => Carbon::now()->setTimezone('Asia/Kolkata')->toDateTimeString(),
+            ]);
+        
+        if ($journey) {
+            $response = [
+                'status' => true,
+                'message' => 'Journey Ended Successfully',
+                'error_code' => false,
+                'error_message' => null,
+            ];
+            return response()->json($response, 200);
+        } else {
+            $response = [
+                'status' => false,
+                'message' => 'Something Went Wrong Please Try Again',
+                'error_code' => false, 
+                'error_message' => null,
+            ];
+            return response()->json($response, 200);
+        }
+    }
 }
