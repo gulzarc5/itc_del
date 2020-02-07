@@ -185,4 +185,73 @@ class JourneyController extends Controller
             return response()->json($response, 200);
         }
     }
+
+    public function outletDelivery(Request $request)
+    {
+        $validator =  Validator::make($request->all(),[
+            'user_id' => 'required',
+            'journey_id' => 'required',
+            'out_let_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $response = [
+                'status' => false,
+                'message' => 'Input Validation Error',
+                'error_code' => true,
+                'error_message' => $validator->errors(),
+            ];
+            return response()->json($response, 200);
+        }
+
+        $user_id = $request->input('user_id');
+        $journey_id = $request->input('journey_id');
+        $out_let_id = $request->input('out_let_id');
+        $address = $request->input('address');
+        $latitude = $request->input('latitude');
+        $longtitude = $request->input('longtitude');
+
+        $delivery = DB::table('delivery_details')
+            ->insert([
+                'journey_id' =>  $request->input('journey_id'),
+                'del_boy_id' =>  $request->input('user_id'),
+                'out_let_id' =>  $request->input('out_let_id'),
+                'address' =>  $request->input('address'),
+                'latitude' =>  $request->input('latitude'),
+                'longtitude' =>  $request->input('longtitude'),                
+                'created_at' => Carbon::now()->setTimezone('Asia/Kolkata')->toDateTimeString(),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Kolkata')->toDateTimeString(),
+            ]);
+        if ($delivery) {
+            $outlet_check = DB::table('outlet')->where('id',$request->input('out_let_id'))->where('gps_update_status',1)->count();
+            if ($outlet_check > 0) {
+                if (!empty($address) && !empty($latitude) && !empty($longtitude)) {
+                    DB::table('outlet')
+                        ->where('id',$request->input('out_let_id'))
+                        ->update([
+                            'latitude' =>  $request->input('latitude'),
+                            'longtitude' =>  $request->input('longtitude'),
+                            'updated_at' => Carbon::now()->setTimezone('Asia/Kolkata')->toDateTimeString(),
+                            'gps_update_status' => 2,
+                        ]);
+                }
+            }
+
+            $response = [
+                'status' => true,
+                'message' => 'Delivered Successfully',
+                'error_code' => false,
+                'error_message' => null,
+            ];
+            return response()->json($response, 200);
+        }else{
+            $response = [
+                'status' => false,
+                'message' => 'Something Went Wrong Please Try Again',
+                'error_code' => false,
+                'error_message' => null,
+            ];
+            return response()->json($response, 200);
+        }
+    }
 }

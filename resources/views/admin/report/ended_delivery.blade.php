@@ -3,6 +3,53 @@
 @section('content')
 
 <div class="right_col" role="main">
+    <div>
+        {{ Form::open(['method' => 'post','route'=>'admin.ended_delivery_report_search']) }}           
+            <div class="form-group row">
+                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">From Date<span class="required" style="color:red;font-weight:bold">*</span></label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input type="date" class="form-control" required name="s_date" >      
+                </div>
+                <label class="control-label col-md-1 col-sm-3 col-xs-12" for="first-name">To Date<span class="required" style="color:red;font-weight:bold">*</span></label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input type="date" class="form-control" required name="e_date" >        
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Select Delivery Boy</label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <select class="form-control">  
+                        <option value="">--Select Delivery Boy--</option>   
+                        @if (isset($delivery_boy) && !empty($delivery_boy))
+                            @foreach ($delivery_boy as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>    
+                            @endforeach
+                        @endif
+                    </select> 
+                </div>
+                <label class="control-label col-md-1 col-sm-3 col-xs-12" for="first-name" style="padding: 0;padding-top: 7px;">Beat Name</label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <select class="form-control">  
+                        <option value="">--Select Beat Name--</option>    
+                        @if (isset($beat) && !empty($beat))
+                            @foreach ($beat as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>    
+                            @endforeach
+                        @endif  
+                    </select>   
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="display:flex;justify-content:center">
+                  <button type="submit" class="btn btn-info">Search</button>
+                  <button type="button" class="btn btn-primary">Export To Excel</button>
+                </div>
+            </div>
+        {{ Form::close() }}
+    </div>
+
+
     <div class="row">
     	<div class="col-md-12 col-xs-12 col-sm-12" style="margin-top:50px;">
     	    <div class="x_panel">
@@ -38,7 +85,7 @@
     	    </div>
     	</div>
     </div>
-	</div>
+</div>
 
 
  @endsection

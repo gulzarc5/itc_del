@@ -24,6 +24,8 @@ Route::group(['namespace'=>'Api'], function(){
 
         Route::post('journey/end','JourneyController@journeyEnd');
 
+        Route::post('outlet/delivered','JourneyController@outletDelivery');
+
     });
      
 

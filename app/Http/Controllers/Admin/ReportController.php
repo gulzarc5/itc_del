@@ -11,7 +11,9 @@ class ReportController extends Controller
 {
     public function endedReport()
     {
-        return view('admin.report.ended_delivery');
+        $delivery_boy = DB::table('user')->get();
+        $beat = DB::table('beat_name')->get();
+        return view('admin.report.ended_delivery',compact('delivery_boy','beat'));
     }
 
     public function endedReportAjax()
@@ -34,5 +36,17 @@ class ReportController extends Controller
             })
             ->rawColumns(['action','day'])
             ->make(true);
+    }
+
+    public function endedReportSearch(Request $request)
+    {
+        $request->validate([
+            's_date' => 'required',
+            'e_date' => 'required',
+        ]);
+
+        $s_date = $request->input('s_date');
+        $e_date = $request->input('e_date');
+        $user_id =  $request->input('e_date');
     }
 }

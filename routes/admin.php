@@ -33,6 +33,7 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::group(['prefix'=>'report'],function(){
             Route::get('ended/delivery','ReportController@endedReport')->name('admin.ended_delivery_report');
             Route::get('ended/list/ajax','ReportController@endedReportAjax')->name('admin.ended_delivery_report_ajax');
+            Route::post('search','ReportController@endedReportSearch')->name('admin.ended_delivery_report_search');
         });
 
     });
