@@ -40,17 +40,19 @@ class JourneyController extends Controller
         ]);
     
         if ($validator->fails()) {
+
             $response = [
                 'status' => false,
                 'message' => 'Input Validation Error',
                 'error_code' => true,
                 'error_message' => $validator->errors(),
+                'data' => null;
             ];
             return response()->json($response, 200);
         }
 
         $journey = DB::table('start_journey')
-            ->insert([
+            ->insertGetId([
                 'user_id' => $request->input('user_id'),
                 'beat_id' => $request->input('beat_id'),
                 'start_date' => $request->input('start_date'),
@@ -63,11 +65,16 @@ class JourneyController extends Controller
             ]);
         
         if ($journey) {
+            $data = [
+                'journey_id' => $journey,
+                'beat_id' => $request->input('beat_id'),
+            ];
             $response = [
                 'status' => true,
                 'message' => 'Journey Started Successfully',
                 'error_code' => false,
                 'error_message' => null,
+                'data' => $data;
             ];
             return response()->json($response, 200);
         } else {
@@ -76,6 +83,7 @@ class JourneyController extends Controller
                 'message' => 'Something Went Wrong Please Try Again',
                 'error_code' => false, 
                 'error_message' => null,
+                'data' => null;
             ];
             return response()->json($response, 200);
         }
