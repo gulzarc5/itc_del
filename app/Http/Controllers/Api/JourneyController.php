@@ -46,7 +46,7 @@ class JourneyController extends Controller
                 'message' => 'Input Validation Error',
                 'error_code' => true,
                 'error_message' => $validator->errors(),
-                'data' => null;
+                'data' => null,
             ];
             return response()->json($response, 200);
         }
@@ -74,7 +74,7 @@ class JourneyController extends Controller
                 'message' => 'Journey Started Successfully',
                 'error_code' => false,
                 'error_message' => null,
-                'data' => $data;
+                'data' => $data,
             ];
             return response()->json($response, 200);
         } else {
@@ -83,7 +83,7 @@ class JourneyController extends Controller
                 'message' => 'Something Went Wrong Please Try Again',
                 'error_code' => false, 
                 'error_message' => null,
-                'data' => null;
+                'data' => null,
             ];
             return response()->json($response, 200);
         }
