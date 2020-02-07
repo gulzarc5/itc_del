@@ -95,7 +95,11 @@ class JourneyController extends Controller
 
     public function outLetList($beat_id,$user_id)
     {
-        $date = Carbon::today()->setTimezone('Asia/Kolkata');
+        // $date = Carbon::today()->setTimezone('Asia/Kolkata');
+        // dd($date);
+        
+        $date = Carbon::now()->timezone('Asia/Kolkata');
+        // dd($date);
         $outlet_list = DB::table('outlet')->where('beat_id',$beat_id)->where('status',1)->get();
         foreach ($outlet_list as $key => $value) {
             $count = DB::table('delivery_details')
