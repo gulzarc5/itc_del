@@ -93,9 +93,22 @@ class JourneyController extends Controller
         }
     }
 
-    public function outLetList($beat_id)
+    public function outLetList($beat_id,$user_id)
     {
+        $date = Carbon::today()->setTimezone('Asia/Kolkata');
         $outlet_list = DB::table('outlet')->where('beat_id',$beat_id)->where('status',1)->get();
+        foreach ($outlet_list as $key => $value) {
+            $count = DB::table('delivery_details')
+                ->where('del_boy_id',$user_id)
+                ->where('out_let_id',$value->id)
+                ->whereDate('created_at',$date)
+                ->count();
+            if ($count > 0) {
+                $value->del_status = 2;
+            }else {
+                $value->del_status = 1;# code...
+            }
+        }
 
         if($outlet_list->count() > 0){
             $response = [

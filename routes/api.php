@@ -20,7 +20,7 @@ Route::group(['namespace'=>'Api'], function(){
 
         Route::post('journey/start','JourneyController@journeyStart');
 
-        Route::get('outlet/list/{beat_id}','JourneyController@outLetList');
+        Route::get('outlet/list/{beat_id}/{user_id}','JourneyController@outLetList');
 
         Route::post('journey/end','JourneyController@journeyEnd');
 
