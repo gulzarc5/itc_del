@@ -80,4 +80,25 @@ class JourneyController extends Controller
             return response()->json($response, 200);
         }
     }
+
+    public function outLetList($beat_id)
+    {
+        $outlet_list = DB::table('outlet')->where('beat_id',$beat_id)->where('status',1)->get();
+
+        if($outlet_list->count() > 0){
+            $response = [
+                'status' => true,
+                'message' => 'Outlet List',    
+                'data' => $outlet_list,
+            ];    	
+            return response()->json($response, 200);
+        }else {
+            $response = [
+                'status' => false,
+                'message' => 'No Outlet Found',    
+                'data' => [],
+            ];    	
+            return response()->json($response, 200);
+        }
+    }
 }
