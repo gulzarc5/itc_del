@@ -82,7 +82,7 @@
                                 <td>{{$item->boy_name}}</td>
                                 <td>{{$item->vehicle_name}}</td>
                                 <td>{{$item->start_address}}</td>
-                                <td><a href="#" class="btn btn-sm btn-info">View Delivery Details</a></td>
+                                <td><a href="{{route('admin.delivery_details',['journey_id'=>encrypt($item->id)])}}" class="btn btn-sm btn-info">View Delivery Details</a></td>
                               </tr>
                             @endforeach
                           @else
@@ -124,7 +124,7 @@
                               <td>{{$item->start_address}}</td>
                               <td>{{$item->end_address}}</td>
                               <td>{{$item->total_km}}</td>
-                              <td><a href="#" class="btn btn-sm btn-info">View Delivery Details</a></td>
+                              <td><a href="{{route('admin.delivery_details',['journey_id'=>encrypt($item->id)])}}" class="btn btn-sm btn-info">View Delivery Details</a></td>
                             </tr>
                           @endforeach
                         @else

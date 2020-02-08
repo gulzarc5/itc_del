@@ -57,7 +57,7 @@
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <a href="{{route('admin.deshboard')}}" class="site_title">
-                <img src="{{ asset('web/images/logo.png')}}">
+                ITC Guwahati
               </a>
             </div>
 
@@ -95,6 +95,7 @@
                   <li><a><i class="fa fa-cogs" aria-hidden="true"></i> Report <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                      <li class="sub_menu"><a href="{{route('admin.ended_delivery_report')}}">Delivery Report</a></li>
+                     <li class="sub_menu"><a href="{{route('admin.outlet_delivery_report')}}">Outlet Delivery Report</a></li>
                    </ul>
                  </li>
 

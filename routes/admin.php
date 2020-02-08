@@ -31,11 +31,21 @@ Route::group(['namespace'=>'Admin'],function(){
         });
 
         Route::group(['prefix'=>'report'],function(){
+
+            Route::get('delivery/{journey_id}','ReportController@deliveryDetails')->name('admin.delivery_details');
+
             Route::get('ended/delivery','ReportController@endedReport')->name('admin.ended_delivery_report');
             Route::get('ended/list/ajax','ReportController@endedReportAjax')->name('admin.ended_delivery_report_ajax');
             Route::post('search','ReportController@endedReportSearch')->name('admin.ended_delivery_report_search');
 
             Route::get('export/{s_date}/{e_date}/{del_boy_id?}/{beat_id?}','ReportController@endedReportExport')->name('admin.export_report');
+
+
+            Route::get('outlet/delivery','ReportController@outletDeliveryReport')->name('admin.outlet_delivery_report');
+            Route::get('outlet/delivery/list/ajax','ReportController@outletDeliveryReportAjax')->name('admin.outlet_delivery_report_ajax');
+            Route::post('outlet/delivery/search','ReportController@outletDeliveryReportSearch')->name('admin.outlet_delivery_report_search');
+
+            Route::get('outlet/export/{s_date}/{e_date}/{del_boy_id?}/{beat_id?}','ReportController@outletDeliveryReportExport')->name('admin.export_outlet_delivery_report');
         });
 
     });

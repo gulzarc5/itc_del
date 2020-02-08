@@ -4,7 +4,7 @@
 
 <div class="right_col" role="main">
     <div>
-        {{ Form::open(['method' => 'post','route'=>'admin.ended_delivery_report_search']) }}    
+        {{ Form::open(['method' => 'post','route'=>'admin.outlet_delivery_report_search']) }}    
             <div id="err_msg">
                 
             </div>
@@ -59,7 +59,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Delivery Report</h2>
+                    <h2>Outlet Delivery Report</h2>
                     <div class="clearfix"></div>
                 </div>
 
@@ -70,16 +70,12 @@
                                 <tr class="headings">           
                                     <th class="column-title">Sl</th>
                                     <th class="column-title">Date</th>
-                                    <th class="column-title">Day</th>
+                                    <th class="column-title">Day</th>                                    
+                                    <th class="column-title">Outlet Name</th>
                                     <th class="column-title">Delivery Boy Name</th>
                                     <th class="column-title">Vehicle Type</th>
                                     <th class="column-title">Beat Name</th>
-                                    <th class="column-title">Start Time</th>
-                                    <th class="column-title">End Time</th>
-                                    <th class="column-title">Total KM For Day</th>
-                                    <th class="column-title">Per KM Cost</th>
-                                    <th class="column-title">Total Cost</th>
-                                    <th class="column-title">Action</th>
+                                    <th class="column-title">Outlet Address</th>
                             </thead>
 
                             <tbody>
@@ -91,15 +87,11 @@
                                     <td>{{$report_count++}}</td>
                                     <td>{{$item->created_at}}</td>
                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->format('l')}}</td>
+                                    <td>{{$item->outlet_name}}</td>
                                     <td>{{$item->boy_name}}</td>
                                     <td>{{$item->vehicle_name}}</td>
                                     <td>{{$item->beat_name}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->start_time)->format('g:i a')}}</td>
-                                    <td>{{\Carbon\Carbon::parse($item->end_time)->format('g:i a')}}</td>
-                                    <td>{{$item->total_km}}</td>
-                                    <td>{{$item->per_km_cost}}</td>
-                                    <td>{{$item->total_cost}}</td>
-                                <td><a href="{{route('admin.delivery_details',['journey_id'=>encrypt($item->id)])}}" class="btn btn-sm btn-info">View Details</a></td>
+                                    <td>{{$item->outlet_address}}</td>
                                 </tr>    
                                 @endforeach
                             </tbody>
@@ -116,7 +108,7 @@
     	    <div class="x_panel">
 
     	        <div class="x_title">
-    	            <h2>Delivery Report</h2>
+    	            <h2>Outlet Delivery Report</h2>
     	            <div class="clearfix"></div>
     	        </div>
     	        <div>
@@ -127,15 +119,11 @@
                               <th>Sl</th>
                               <th>Date</th>
                               <th>Day</th>
+                              <th>Outlet Name</th>
                               <th>Delivery Boy Name</th>
                               <th>Vehicle Type</th>
+                              <th>Outlet Address</th>
                               <th>Beat Name</th>
-                              <th>Start Time</th>
-                              <th>End Time</th>
-                              <th>Total KM For Day</th>
-                              <th>Per KM Cost</th>
-                              <th>Total Cost</th>
-                              <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>                       
@@ -162,20 +150,16 @@
                     processing: true,
                     serverSide: true,
                     pageLength: 50,
-                    ajax: "{{route('admin.ended_delivery_report_ajax')}}",
+                    ajax: "{{route('admin.outlet_delivery_report_ajax')}}",
                     columns: [
                         {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                         {data: 'created_at', name: 'created_at' ,searchable: true},
                         {data: 'day', name: 'day' ,searchable: true},
+                        {data: 'outlet_name', name: 'outlet_name' ,searchable: true},
                         {data: 'boy_name', name: 'boy_name' ,searchable: true},
                         {data: 'vehicle_name', name: 'vehicle_name' ,searchable: true},
+                        {data: 'outlet_address', name: 'outlet_address' ,searchable: true},
                         {data: 'beat_name', name: 'beat_name' ,searchable: true},
-                        {data: 'start_time', name: 'start_time' ,searchable: true},
-                        {data: 'end_time', name: 'end_time' ,searchable: true},
-                        {data: 'total_km', name: 'total_km' ,searchable: true},
-                        {data: 'per_km_cost', name: 'per_km_cost' ,searchable: true},
-                        {data: 'total_cost', name: 'total_cost' ,searchable: true},
-                        {data: 'action', name: 'action', orderable: false, searchable: false},
                     ]
                 });
                 
@@ -195,7 +179,7 @@
                 if (e_date) {
                     $("#err_msg").html('');
                     
-                    window.location.href = "{{url('admin/report/export')}}/"+s_date+"/"+e_date+"/"+del_boy+"/"+beat+"";
+                    window.location.href = "{{url('admin/report/outlet/export')}}/"+s_date+"/"+e_date+"/"+del_boy+"/"+beat+"";
                     
                 } else {
                     $("#err_msg").html('<p class="alert alert-danger" style="display:flex;justify-content:center">To Date Can Not Be Empty</p>');
