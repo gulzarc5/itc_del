@@ -26,6 +26,7 @@ class DashboardController extends Controller
             ->leftjoin('vehicle_type','vehicle_type.id','=','start_journey.vehicle_id')
             ->where('start_journey.status',2)
             ->whereDate('start_journey.created_at',Carbon::today())
+            ->orderBy('start_journey.id','desc')
             ->get();
 
         $total_boy = DB::table('user')->where('status',1)->count();
