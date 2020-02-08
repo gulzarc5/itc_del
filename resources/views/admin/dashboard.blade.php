@@ -76,7 +76,7 @@
                           @endphp
                             @foreach ($started_journey as $item)
                               <tr>
-                                <td>{{$start_journey_count}}</td>
+                                <td>{{$start_journey_count++}}</td>
                                 <td>{{$item->start_date}} {{$item->start_time}}</td>
                                 <td>{{$item->b_beat_name}}</td>
                                 <td>{{$item->boy_name}}</td>
@@ -116,7 +116,7 @@
                         @endphp
                           @foreach ($end_journey as $item)
                             <tr>
-                              <td>{{$end_journey_count}}</td>
+                              <td>{{$end_journey_count++}}</td>
                               <td>{{$item->end_date}} {{$item->end_time}}</td>
                               <td>{{$item->b_beat_name}}</td>
                               <td>{{$item->boy_name}}</td>
